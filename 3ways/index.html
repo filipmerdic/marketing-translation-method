@@ -209,57 +209,21 @@
         <li>No learning curve needed—simple, actionable strategies you can implement right after reading</li>
         <li>Skip the overwhelm and confusion—straightforward methods designed specifically for busy marketers who want results now</li>
       </ul>
-      <form id="guide-form" action="#" method="POST">
-        <div class="form-group">
-          <label for="firstname">First Name</label>
-          <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
-        </div>
-        <div class="form-group">
-          <label for="lastname">Last Name</label>
-          <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
-        </div>
-        <div class="form-group">
-          <label for="jobtitle">Job Title</label>
-          <input type="text" id="jobtitle" name="jobtitle" placeholder="e.g. Marketing Manager" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="Enter your email" required>
-        </div>
-        <button type="submit" class="submit-btn">Send Me the Guide</button>
-      </form>
+      <div id="convertkit-form">
+        <script async data-uid="9344fe8c98" src="https://marketing-translation-method.kit.com/9344fe8c98/index.js"></script>
+      </div>
     </div>
     <div class="right-half">
       <img src="/3ways/guide-cover.jpg" alt="3 Ways Marketers Can Use AI to Boost Their Productivity Tomorrow - A Non-Technical Guide">
     </div>
   </main>
   <script>
-    var CONVERTKIT_WEBHOOK = 'https://app.convertkit.com/integrations/unbounce/9078055/webhook?api_key=29ELJMg_XqKQrJmJj0Acfw';
-
-    document.getElementById('guide-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var form = this;
-
-      var params = new URLSearchParams();
-      params.append('email', form.email.value);
-      params.append('first_name', form.firstname.value);
-      params.append('last_name', form.lastname.value);
-      params.append('job_title', form.jobtitle.value);
-
-      fetch(CONVERTKIT_WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString()
-      }).catch(function() {});
-
-      if (typeof fbq !== 'undefined') { fbq('track', 'Lead'); }
-      window.open('/3ways/3-ways-marketers-use-ai.pdf', '_blank');
-      form.style.display = 'none';
-      var msg = document.createElement('p');
-      msg.style.cssText = 'font-size: 18px; font-weight: 600; color: #ff2e11; margin-top: 16px;';
-      msg.textContent = 'Check your new tab for the guide!';
-      form.parentNode.appendChild(msg);
-    });
+    document.addEventListener('submit', function(e) {
+      if (e.target.closest('#convertkit-form')) {
+        if (typeof fbq !== 'undefined') fbq('track', 'Lead');
+        window.open('/3ways/3-ways-marketers-use-ai.pdf', '_blank');
+      }
+    }, true);
   </script>
 </body>
 </html>
