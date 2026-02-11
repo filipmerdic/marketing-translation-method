@@ -234,46 +234,23 @@
     </div>
   </main>
   <script>
+    var CONVERTKIT_WEBHOOK = 'https://app.convertkit.com/integrations/unbounce/9078055/webhook?api_key=29ELJMg_XqKQrJmJj0Acfw';
+
     document.getElementById('guide-form').addEventListener('submit', function(e) {
       e.preventDefault();
       var form = this;
 
-      var payload = {
-        email: form.email.value,
-        first_name: form.firstname.value,
-        last_name: form.lastname.value,
-        job_title: form.jobtitle.value
-      };
+      var params = new URLSearchParams();
+      params.append('email', form.email.value);
+      params.append('first_name', form.firstname.value);
+      params.append('last_name', form.lastname.value);
+      params.append('job_title', form.jobtitle.value);
 
-      var ckPayload = {
-        api_key: '29ELJMg_XqKQrJmJj0Acfw',
-        email: payload.email,
-        first_name: payload.first_name,
-        fields: { last_name: payload.last_name, job_title: payload.job_title }
-      };
-
-      function sendToConvertKit() {
-        return fetch('https://api.convertkit.com/v3/forms/9078055/subscribe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(ckPayload)
-        });
-      }
-
-      fetch('/api/subscribe', {
+      fetch(CONVERTKIT_WEBHOOK, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-      .then(function(res) {
-        if (res.ok) return;
-        if (res.status === 404 || res.status >= 500) {
-          return sendToConvertKit().catch(function(){});
-        }
-      })
-      .catch(function(err) {
-        return sendToConvertKit().catch(function(){});
-      });
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString()
+      }).catch(function() {});
 
       if (typeof fbq !== 'undefined') { fbq('track', 'Lead'); }
       window.open('/3ways/3-ways-marketers-use-ai.pdf', '_blank');
