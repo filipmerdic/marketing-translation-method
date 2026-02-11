@@ -10,10 +10,10 @@ Landing pages for the Marketing Translation Method project.
 ## Structure
 
 ```
-unbouncepages.com/
+├── index.html      # Root redirect to 3ways
 ├── 3ways/          # AI guide landing page
-├── pre-sale/        # Pre-sale page
-└── vercel.json      # Vercel config
+├── pre-sale/       # Pre-sale page
+└── vercel.json     # Vercel config
 ```
 
 ## Deployment
