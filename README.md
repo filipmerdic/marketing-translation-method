@@ -4,15 +4,14 @@ Landing pages for the Marketing Translation Method project.
 
 ## Pages
 
+- **/** – Pre-sale landing page (root)
 - **3ways** – 3 Ways Marketers Use AI guide
-- **pre-sale** – Pre-sale landing page
 
 ## Structure
 
 ```
-├── index.html      # Root redirect to 3ways
+├── index.html      # Pre-sale page (root)
 ├── 3ways/          # AI guide landing page
-├── pre-sale/       # Pre-sale page
 └── vercel.json     # Vercel config
 ```
 
