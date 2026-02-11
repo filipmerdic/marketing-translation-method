@@ -234,12 +234,6 @@
     </div>
   </main>
   <script>
-    // #region agent log
-    function _dbg(o) {
-      fetch('http://127.0.0.1:7244/ingest/08ef0313-ee40-49db-9902-25daca2f68be',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'3ways/index.html',message:o.message||'debug',data:o.data||{},timestamp:Date.now(),hypothesisId:o.h||'X',runId:o.runId||'pre-fix'})}).catch(function(){});
-    }
-    // #endregion
-
     document.getElementById('guide-form').addEventListener('submit', function(e) {
       e.preventDefault();
       var form = this;
@@ -258,10 +252,6 @@
         fields: { last_name: payload.last_name, job_title: payload.job_title }
       };
 
-      // #region agent log
-      _dbg({message:'form_submit_start',data:{hasEmail:!!payload.email,url:'/api/subscribe'},h:'H1',runId:'post-fix'});
-      // #endregion
-
       function sendToConvertKit() {
         return fetch('https://api.convertkit.com/v3/forms/9078055/subscribe', {
           method: 'POST',
@@ -270,36 +260,19 @@
         });
       }
 
-      function showStatus(text, isError) {
-        try { localStorage.setItem('ck_debug', JSON.stringify({t:Date.now(),msg:text,err:!!isError})); } catch(e){}
-      }
-
-      function handleCkResponse(r) {
-        if (r && r.ok) showStatus('ck_ok');
-        else if (r) showStatus('ck_' + r.status, true);
-      }
-
       fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
-      // #region agent log
       .then(function(res) {
-        _dbg({message:'fetch_proxy',data:{status:res.status,ok:res.ok},h:'H2',runId:'post-fix'});
-        if (res.ok) { showStatus('proxy_ok'); return; }
+        if (res.ok) return;
         if (res.status === 404 || res.status >= 500) {
-          return sendToConvertKit().then(handleCkResponse).catch(function(e){ showStatus('ck_fail',true); });
+          return sendToConvertKit().catch(function(){});
         }
-        showStatus('proxy_' + res.status, true);
       })
-      // #endregion
       .catch(function(err) {
-        // #region agent log
-        _dbg({message:'fetch_error_fallback',data:{errMsg:err.message},h:'H4',runId:'post-fix'});
-        // #endregion
-        showStatus('err_' + (err.message||'unknown'), true);
-        return sendToConvertKit().then(handleCkResponse).catch(function(e){ showStatus('ck_fail',true); });
+        return sendToConvertKit().catch(function(){});
       });
 
       if (typeof fbq !== 'undefined') { fbq('track', 'Lead'); }
@@ -309,11 +282,6 @@
       msg.style.cssText = 'font-size: 18px; font-weight: 600; color: #ff2e11; margin-top: 16px;';
       msg.textContent = 'Check your new tab for the guide!';
       form.parentNode.appendChild(msg);
-      var debugNote = document.createElement('p');
-      debugNote.id = 'ck-debug-note';
-      debugNote.style.cssText = 'font-size: 12px; color: #666; margin-top: 8px;';
-      debugNote.textContent = 'Tip: Deploy to Vercel so /api/subscribe works. If testing locally, disable ad blockers.';
-      form.parentNode.appendChild(debugNote);
     });
   </script>
 </body>
