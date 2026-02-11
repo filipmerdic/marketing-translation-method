@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>3 Ways Marketers Can Use AI to Boost Their Productivity Tomorrow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-size: 16px;
+      color: #000;
+      background: #eeeeee;
+    }
+    a {
+      color: #0000ff;
+      text-decoration: none;
+    }
+
+    .main-section {
+      display: flex;
+      align-items: stretch;
+      min-height: 100vh;
+      max-width: 1320px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 30px;
+      margin: 24px auto;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .left-half {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 56px;
+    }
+
+    .right-half {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+      background: #f9f5e7;
+    }
+
+    .right-half img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      max-height: calc(100vh - 96px);
+    }
+
+    .main-section h1 {
+      margin: 0 0 24px;
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 800;
+      line-height: 1.25;
+      color: #000;
+    }
+
+    .bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 32px;
+    }
+
+    .bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .bullets li::before {
+      content: "✓";
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      background: #ff2e11;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #000;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background: #fff;
+      color: #000;
+    }
+
+    .form-group input::placeholder {
+      color: #999;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #ff2e11;
+      box-shadow: 0 0 0 2px rgba(255, 46, 17, 0.2);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px 24px;
+      margin-top: 8px;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      background: #ff2e11;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .submit-btn:active {
+      background: rgba(230, 30, 11, 1);
+      color: #fff;
+    }
+
+    /* Responsive: stack vertically on mobile */
+    @media only screen and (max-width: 768px) {
+      .main-section {
+        flex-direction: column;
+        margin: 16px;
+      }
+
+      .left-half {
+        padding: 32px 24px;
+        order: 2;
+      }
+
+      .right-half {
+        padding: 24px;
+        min-height: 400px;
+        order: 1;
+      }
+
+      .right-half img {
+        max-height: 400px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="main-section">
+    <div class="left-half">
+      <h1>3 Ways Marketers Can Use AI to Boost Their Productivity Tomorrow</h1>
+      <ul class="bullets">
+        <li>Get an instant productivity boost—start saving hours every week without any technical skills required</li>
+        <li>No learning curve needed—simple, actionable strategies you can implement right after reading</li>
+        <li>Skip the overwhelm and confusion—straightforward methods designed specifically for busy marketers who want results now</li>
+      </ul>
+      <form id="guide-form" action="#" method="POST">
+        <div class="form-group">
+          <label for="firstname">First Name</label>
+          <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
+        </div>
+        <div class="form-group">
+          <label for="lastname">Last Name</label>
+          <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
+        </div>
+        <div class="form-group">
+          <label for="jobtitle">Job Title</label>
+          <input type="text" id="jobtitle" name="jobtitle" placeholder="e.g. Marketing Manager" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <button type="submit" class="submit-btn">Send Me the Guide</button>
+      </form>
+    </div>
+    <div class="right-half">
+      <img src="guide-cover.png" alt="3 Ways Marketers Can Use AI to Boost Their Productivity Tomorrow - A Non-Technical Guide">
+    </div>
+  </main>
+  <script>
+    document.getElementById('guide-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      window.open('3-ways-marketers-use-ai.pdf', '_blank');
+      this.style.display = 'none';
+      var msg = document.createElement('p');
+      msg.style.cssText = 'font-size: 18px; font-weight: 600; color: #ff2e11; margin-top: 16px;';
+      msg.textContent = 'Check your new tab for the guide!';
+      this.parentNode.appendChild(msg);
+    });
+  </script>
+</body>
+</html>
