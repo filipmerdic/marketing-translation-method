@@ -209,9 +209,33 @@
         <li>No learning curve needed—simple, actionable strategies you can implement right after reading</li>
         <li>Skip the overwhelm and confusion—straightforward methods designed specifically for busy marketers who want results now</li>
       </ul>
-      <div id="convertkit-form">
-        <script async data-uid="9344fe8c98" src="https://marketing-translation-method.kit.com/9344fe8c98/index.js"></script>
-      </div>
+      <form id="activecampaign-form" action="https://marketingtranslationmethod.activehosted.com/proc.php" method="post">
+        <input type="hidden" name="f" value="1">
+        <input type="hidden" name="s" value="">
+        <input type="hidden" name="u" value="1">
+        <input type="hidden" name="c" value="0">
+        <input type="hidden" name="m" value="0">
+        <input type="hidden" name="act" value="sub">
+        <input type="hidden" name="v" value="2">
+        <input type="hidden" name="or" value="b58b4498-b0c3-49e1-a91a-6428eef5fc51">
+        <div class="form-group">
+          <label for="firstname">First Name *</label>
+          <input type="text" id="firstname" name="firstname" required placeholder="First Name">
+        </div>
+        <div class="form-group">
+          <label for="lastname">Last Name *</label>
+          <input type="text" id="lastname" name="lastname" required placeholder="Last Name">
+        </div>
+        <div class="form-group">
+          <label for="field[2]">Job title *</label>
+          <input type="text" id="field[2]" name="field[2]" required placeholder="Job title">
+        </div>
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required placeholder="Email">
+        </div>
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
     </div>
     <div class="right-half">
       <img src="/3ways/guide-cover.jpg" alt="3 Ways Marketers Can Use AI to Boost Their Productivity Tomorrow - A Non-Technical Guide">
@@ -219,9 +243,12 @@
   </main>
   <script>
     document.addEventListener('submit', function(e) {
-      if (e.target.closest('#convertkit-form')) {
+      if (e.target.closest('#activecampaign-form')) {
+        e.preventDefault();
         if (typeof fbq !== 'undefined') fbq('track', 'Lead');
         window.open('/3ways/3-ways-marketers-use-ai.pdf', '_blank');
+        e.target.target = '_blank';
+        e.target.submit();
       }
     }, true);
   </script>
