@@ -69,4 +69,13 @@
       }
     });
   });
+
+  /* ---- Meta Pixel: fire InitiateCheckout when a checkout (Stripe) CTA is clicked.
+     Pairs with the Purchase event on /success-presale. ---- */
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('a[href*="buy.stripe.com"]');
+    if (link && typeof window.fbq !== 'undefined') {
+      window.fbq('track', 'InitiateCheckout', { value: 297.00, currency: 'USD' });
+    }
+  }, true);
 })();
