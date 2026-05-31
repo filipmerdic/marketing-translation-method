@@ -8,7 +8,7 @@ import crypto from 'crypto';
 // Env vars (set in Vercel): STRIPE_WEBHOOK_SECRET, POSTHOG_PROJECT_KEY
 // Zero dependencies — Node `crypto` + global `fetch`, matching api/subscribe.js.
 
-const POSTHOG_HOST = 'https://us.i.posthog.com';
+const POSTHOG_HOST = 'https://eu.i.posthog.com';
 const SIGNATURE_TOLERANCE_SECONDS = 60 * 5;
 
 // Stripe requires the raw, unparsed body to verify the signature.
