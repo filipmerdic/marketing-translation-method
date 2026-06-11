@@ -1,0 +1,3 @@
+# Keep local copy research & explorations out of Vercel deploys
+# (root is served as the static site via outputDirectory ".")
+copywriting/

@@ -7,3 +7,6 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Copy research & explorations (local only — not committed or deployed)
+copywriting/
