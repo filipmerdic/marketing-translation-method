@@ -403,11 +403,43 @@ form{margin-top:1.3rem;display:grid;gap:.85rem}
   }, { threshold: .12 });
   document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
 
-  /* registration form → /api/subscribe (ConvertKit) */
+  /* registration form → ActiveCampaign "Webinar Registration" form (f=3),
+     same proc.php endpoint as the 3ways lander. Submission uses AC's own
+     JSONP mechanism: proc.php responds with a script that calls
+     window._show_thank_you / window._show_error. */
+  var AC_ENDPOINT = 'https://marketingtranslationmethod.activehosted.com/proc.php';
+  var AC_PARAMS = { u: '3', f: '3', s: '', c: '0', m: '0', act: 'sub', v: '2', or: '91e04d5f-1f44-4bf6-9070-09afd873f353' };
+
   var form = document.getElementById('regForm');
   var btn = document.getElementById('submitBtn');
   var errBox = document.getElementById('formError');
   var successBox = document.getElementById('successBox');
+  var pending = null;
+
+  function resetButton() {
+    btn.disabled = false;
+    btn.textContent = 'Save my seat →';
+  }
+
+  /* called by the proc.php JSONP response on success */
+  window._show_thank_you = function (id, message, trackcmpUrl, email) {
+    if (window.fbq) fbq('track', 'Lead', { content_name: 'webinar-registration' });
+    if (window.posthog && window.posthog.capture) {
+      window.posthog.capture('webinar_registration', { job_title: pending ? pending.job_title : undefined });
+      if (window.posthog.identify && pending) {
+        window.posthog.identify(pending.email, { email: pending.email, first_name: pending.first_name, job_title: pending.job_title });
+      }
+    }
+    form.style.display = 'none';
+    successBox.classList.add('show');
+  };
+
+  /* called by the proc.php JSONP response on failure (e.g. invalid email) */
+  window._show_error = function (id, message) {
+    if (typeof message === 'string' && message) errBox.textContent = message;
+    errBox.classList.add('show');
+    resetButton();
+  };
 
   form.addEventListener('submit', function (ev) {
     ev.preventDefault();
@@ -415,37 +447,29 @@ form{margin-top:1.3rem;display:grid;gap:.85rem}
 
     if (!form.reportValidity()) return;
 
-    var payload = {
+    pending = {
       first_name: document.getElementById('firstName').value.trim(),
       email: document.getElementById('email').value.trim(),
-      job_title: document.getElementById('jobTitle').value.trim(),
-      source: 'webinar-registration'
+      job_title: document.getElementById('jobTitle').value.trim()
     };
 
     btn.disabled = true;
     btn.textContent = 'Saving your seat…';
 
-    fetch('/api/subscribe', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    })
-      .then(function (res) { if (!res.ok) throw new Error('subscribe failed'); return res.json(); })
-      .then(function () {
-        /* analytics */
-        if (window.fbq) fbq('track', 'Lead', { content_name: 'webinar-registration' });
-        if (window.posthog && window.posthog.capture) {
-          window.posthog.capture('webinar_registration', { job_title: payload.job_title });
-          if (window.posthog.identify) window.posthog.identify(payload.email, { email: payload.email, first_name: payload.first_name, job_title: payload.job_title });
-        }
-        form.style.display = 'none';
-        successBox.classList.add('show');
-      })
-      .catch(function () {
-        errBox.classList.add('show');
-        btn.disabled = false;
-        btn.textContent = 'Save my seat →';
-      });
+    var qs = new URLSearchParams(AC_PARAMS);
+    qs.set('firstname', pending.first_name);
+    qs.set('email', pending.email);
+    qs.set('field[2]', pending.job_title);
+    qs.set('jsonp', 'true');
+
+    var script = document.createElement('script');
+    script.src = AC_ENDPOINT + '?' + qs.toString();
+    script.onerror = function () {
+      errBox.textContent = "Hmm, that didn't go through — mind checking your email and trying again?";
+      errBox.classList.add('show');
+      resetButton();
+    };
+    document.head.appendChild(script);
   });
 })();
 </script>
