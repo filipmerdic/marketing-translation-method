@@ -11,3 +11,12 @@ Thumbs.db
 
 # Copy research & explorations (local only — not committed or deployed)
 copywriting/
+
+# Local working artifacts — slide decks, raw exports, lead-magnet PDFs (not deployed)
+unbouncepages.com/
+course/course.html
+3-ways-marketers-use-ai.pdf
+3ways-presentation.html
+3ways-presentation-v2.html
+mtm-webinar-presentation.html
+webinar-slides.html
